@@ -7,12 +7,18 @@ This program generates a random bitmap image of size imageSize by pulling
 random integers from random.org
 '''
 def main():
-	imageSize = 10 # variable that controls image size
+	imageSize = 127 # variable that controls image size
 	imageArray = [[[0, 0, 0] for x in xrange(imageSize)] for y in xrange(imageSize)] # array containing randomly generated rgb tuples
 	
 	for i in range(len(imageArray)): # go row by row generating array because random.org can only return 10,000 integers at a time
 		imageArray[i] = pullRandomNumber(imageSize) # call to pullRandomNumber which generates one row of the array
-	generateImage(imageArray, imageSize) # generate image using the randomly generated rgb tuples
+		if imageArray[i] is None: # if error grabbing from the website, break for loop
+			break
+
+	try:
+		generateImage(imageArray, imageSize) # generate image using the randomly generated rgb tuples
+	except:
+		print "Error generating image, see above error"
 
 def pullRandomNumber(imageSize):
 	num = imageSize*3
@@ -28,7 +34,7 @@ def pullRandomNumber(imageSize):
 			parsedArray[x][y] = int(array[i])
 		return parsedArray
 
-	except urllib2.HTTPError as e:
+	except urllib2.HTTPError as e: # print the error if request did not go through
 		print e.code
 		print e.read()
 
