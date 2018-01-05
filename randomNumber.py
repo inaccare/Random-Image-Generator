@@ -7,7 +7,7 @@ This program generates a random bitmap image of size imageSize by pulling
 random integers from random.org
 '''
 def main():
-	imageSize = 127 # variable that controls image size
+	imageSize = 128 # variable that controls image size
 	imageArray = [[[0, 0, 0] for x in xrange(imageSize)] for y in xrange(imageSize)] # array containing randomly generated rgb tuples
 	
 	for i in range(len(imageArray)): # go row by row generating array because random.org can only return 10,000 integers at a time
